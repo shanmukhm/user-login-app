@@ -1,13 +1,11 @@
 var express = require('express');
 var router = express.Router();
-
-const {sequelize} = require('../db/sql_db');
-const user = require('../models/user.model');
+const db = require('../models');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   console.log('routed')
-  console.log(sequelize.models.User.findAll());
+  console.log(db.user.findAll());
   res.send('get all users');
 });
 

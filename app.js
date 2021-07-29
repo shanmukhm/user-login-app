@@ -4,17 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-const dbObj = require('./db/sql_db');
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
 const db = require("./models");
-db.sequelize.sync({force: true}).then(() => {
-  console.log(`Dropped tables and resynced.`);
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,10 +20,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(async (req, res, next) => {
-//   await dbObj.connect();
-//   next();
-// });
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -49,6 +40,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(8000);
+db.sequelize.sync({force: true}).then(() => {
+  console.log(`Dropped tables and resynced.`);
+});
+
+app.listen(8000, () => {
+  console.log('Server started successfully!');
+});
 
 module.exports = app;

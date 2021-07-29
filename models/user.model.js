@@ -4,7 +4,8 @@ module.exports = (sequelize, Sequelize) => {
     // Model attributes are defined here
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     firstName: {
       type: DataTypes.STRING
@@ -15,7 +16,8 @@ module.exports = (sequelize, Sequelize) => {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
       // allowNull defaults to true
     },
     password: {
