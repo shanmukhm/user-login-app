@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const {sequelize} = require('../db/sql_db');
-const user = require('../model/user');
+const user = require('../models/user.model');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
