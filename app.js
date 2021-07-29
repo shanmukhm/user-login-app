@@ -40,8 +40,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-db.sequelize.sync({force: true}).then(() => {
-  console.log(`Dropped tables and resynced.`);
+db.sequelize.sync().then(() => {
+  // console.log(`Dropped tables and resynced.`);
+  console.log(`Synced.`);
 });
 
 app.listen(8000, () => {
