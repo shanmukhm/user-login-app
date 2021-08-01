@@ -12,17 +12,6 @@ module.exports = (sequelize, Sequelize, User) => {
         },
         description: {
             type: DataTypes.TEXT,
-        },
-        user_id: {
-            type: DataTypes.INTEGER,
-        
-            references: {
-              // This is a reference to another model
-              model: User,
-        
-              // This is the column name of the referenced model
-              key: 'id',
-            }
         }
     });
 
