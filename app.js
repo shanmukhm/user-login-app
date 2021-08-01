@@ -40,10 +40,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-db.sequelize.sync({alter: true}).then(() => {
-  // console.log(`Dropped tables and resynced.`);
-  console.log(`Synced.`);
-});
+// db.sequelize.sync({alter: true}).then(() => {
+//   // console.log(`Dropped tables and resynced.`);
+//   console.log(`Synced.`);
+// });
 
 app.listen(8000, () => {
   console.log('Server started successfully!');
