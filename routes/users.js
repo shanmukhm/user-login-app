@@ -13,10 +13,14 @@ router.get('/', async function (req, res, next) {
   console.log(req.body);
   try {
     const user = await db.user.findOne({
-      email: req.body.userId
+      where: { email: req.body.userId }
     });
-    res.send('get all users');
+    console.log((await user.getTasks({
+      raw: true
+    })));
+    res.send(`get ${user.email}`);
   } catch (e) {
+    console.log(`Error`, e);
     res.send("Error", 404);
   }
 });
