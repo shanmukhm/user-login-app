@@ -5,7 +5,8 @@ module.exports = (sequelize, Sequelize) => {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
+      unique: true
     },
     firstName: {
       type: DataTypes.STRING
@@ -26,9 +27,6 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false
     },
 
-  }, {
-    // Other model options go here
-    freezeTableName: true
   }
   )
 

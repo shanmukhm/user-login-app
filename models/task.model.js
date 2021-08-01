@@ -25,4 +25,6 @@ module.exports = (sequelize, Sequelize, User) => {
             }
         }
     });
+
+    return Task;
 }
