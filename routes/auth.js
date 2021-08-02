@@ -16,7 +16,9 @@ router.post('/login', async (req, res, next) => {
         }
 
         const user = await db.user.findOne({
-            email
+            where: {
+                email
+            }
         })
         if (user && await bcrypt.compare(password, user.password)) {
             const token = jwt.sign({
@@ -31,7 +33,7 @@ router.post('/login', async (req, res, next) => {
 
             res.status(200).send(user);
         }
-        res.status(400).send("Invalid Credentials");
+        return res.status(400).send("Invalid Credentials");
     } catch (error) {
         console.log('Error', error);
         res.send('Unknown error', 500);
@@ -44,7 +46,8 @@ router.post('/register', async (req, res, next) => {
         if (!(email && password && firstName && lastName)) {
             res.status(400).send("All input is required");
         }
-        const oldUser = await db.user.findOne({ email });
+        const oldUser = await db.user.findOne({ where: { email } });
+        console.log(oldUser)
         if (oldUser) {
             return res.status(409).send("User Already Exist. Please Login");
         }
