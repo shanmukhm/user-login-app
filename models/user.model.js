@@ -27,7 +27,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false
     },
     token: {
-      type: DataTypes.STRING
+      type: DataTypes.VIRTUAL
     }
   }
   )
