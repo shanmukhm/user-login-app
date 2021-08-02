@@ -59,7 +59,7 @@ router.post('/register', async (req, res, next) => {
             email: email.toLowerCase(),
             password: encryptedPassword
         });
-        console.log(process.env.TOKEN_SECRET);
+        // console.log(process.env.TOKEN_SECRET);
         const token = jwt.sign(
             {
                 userId: userCreated.id,
