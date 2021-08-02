@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 var tasksRouter = require('./routes/tasks');
 var authRouter = require('./routes/auth');
 
+const authMiddleWare = require('./middleware/auth');
+
 var app = express();
 
 const db = require("./models");
@@ -23,9 +25,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// auth middleware
+// app.use(authMiddleWare);
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/tasks', tasksRouter);
+app.use('/users', authMiddleWare, usersRouter);
+app.use('/tasks', authMiddleWare, tasksRouter);
 app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
