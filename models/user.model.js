@@ -26,7 +26,9 @@ module.exports = (sequelize, Sequelize) => {
       // allowNull defaults to true
       allowNull: false
     },
-
+    token: {
+      type: DataTypes.STRING
+    }
   }
   )
 
