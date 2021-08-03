@@ -13,12 +13,10 @@ router.get('/', async function (req, res, next) {
   console.log(req.body);
   try {
     const user = await db.user.findOne({
-      where: { email: req.body.userId }
+      where: { email: req.body.userId },
+      include: db.task
     });
-    console.log((await user.getTasks({
-      raw: true
-    })));
-    res.send(`get ${user.email}`);
+    res.status(200).json(user);
   } catch (e) {
     console.log(`Error`, e);
     res.send("Error", 404);
@@ -29,7 +27,7 @@ router.post('/', async function (req, res, next) {
   console.log(req.body);
   try {
     const user = await db.user.create(req.body);
-    res.send(user);
+    res.status(201).json(user);
   } catch (e) {
     res.send("Error occured", 400);
   }
