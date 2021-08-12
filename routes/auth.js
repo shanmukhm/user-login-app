@@ -3,7 +3,7 @@ const db = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const { user } = require('../models');
+const User = require('../models/user.model');
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ router.post('/login', async (req, res, next) => {
             return res.status(400).send('All inputs required.');
         }
 
-        const user = await db.user.findOne({
+        const user = await User.findOne({
             where: {
                 email
             }
@@ -46,14 +46,14 @@ router.post('/register', async (req, res, next) => {
         if (!(email && password && firstName && lastName)) {
             res.status(400).send("All input is required");
         }
-        const oldUser = await db.user.findOne({ where: { email } });
+        const oldUser = await User.findOne({ where: { email } });
         console.log(oldUser)
         if (oldUser) {
             return res.status(409).send("User Already Exist. Please Login");
         }
         const encryptedPassword = await bcrypt.hash(password, 10);
 
-        const userCreated = await db.user.create({
+        const userCreated = await User.create({
             firstName,
             lastName,
             email: email.toLowerCase(),
