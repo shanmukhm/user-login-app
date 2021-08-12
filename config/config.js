@@ -3,7 +3,7 @@ module.exports = {
     "test": {
         "username": "sbuser",
         "password": "sbpwd",
-        "db": "sugarboxdb-test",
+        "database": "sugarboxdb-test",
         "dialect": "mysql",
         "host": "localhost"
     }
