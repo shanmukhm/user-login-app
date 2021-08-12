@@ -16,7 +16,7 @@ const verifyToken = (req, res, next) => {
         if(emailInReq && decoded.email !== emailInReq) {
             return res.status(401).send("Unathorized to access another user's information.");
         }
-        req.body.email = decoded.email;
+        req.email = decoded.email;
     } catch (error) {
         return res.status(401).send("Invalid Token");
     }

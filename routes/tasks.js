@@ -4,7 +4,7 @@ const taskService = require('../services/task');
 
 router.post('/', async (req, res, next) => {
     try {
-        const tasks = await taskService.createTasks(req.body.email, req.body.tasks);
+        const tasks = await taskService.createTasks(req.email, req.body.tasks);
         res.status(201).json(tasks);
     } catch (e) {
         console.log('Error', e);
