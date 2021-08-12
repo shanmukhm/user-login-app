@@ -6,7 +6,7 @@ router.get('/', async (req, res, next) => {
   console.log(req.body);
   try {
     const user = await userService.get(req.body.userId)
-    delete user.password
+    delete user.password;
     res.status(200).json(user);
   } catch (e) {
     console.log(`Error`, e);
