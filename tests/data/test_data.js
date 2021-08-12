@@ -9,6 +9,10 @@ module.exports = {
         "email": "test@test.com",
         "password": "test"
     },
+    wrongLoginRequest: {
+        "email": "test@test.com",
+        "password": "wrong"
+    },
     tasksReq: [
         {
             "name": "test task1",

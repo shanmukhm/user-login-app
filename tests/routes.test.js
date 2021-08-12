@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../app');
-const {userCreateReq, loginRequest, tasksReq} = require('./data/test_data')
+const {userCreateReq, loginRequest, wrongLoginRequest, tasksReq} = require('./data/test_data')
 
 let token = '';
 
@@ -24,10 +24,20 @@ describe('User API', () => {
         token = res.body.token;
     })
 
+    it('Should fail login with wrong password', async () => {
+        const res = await request(app).post('/auth/login').send(wrongLoginRequest);
+        expect(res.statusCode).toEqual(400);
+    })
+
     it('Should show all users', async () => {
         const res = await request(app).get('/users/all').set({'x-access-token': token});
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveLength(1);
+    })
+
+    it('Should fail show all users with invalid token', async () => {
+        const res = await request(app).get('/users/all').set({'x-access-token': 'invalid_token'});
+        expect(res.statusCode).toEqual(401);
     })
 
     it('Should get user by email', async () => {
