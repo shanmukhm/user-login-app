@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 // const config = process.env;
 const config = require('../config/config.js');
+const env = process.env.NODE_ENV || 'developemnt';
+const envConfig = config[env];
 
 const verifyToken = (req, res, next) => {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -9,7 +11,7 @@ const verifyToken = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, config.TOKEN_SECRET)
+        const decoded = jwt.verify(token, envConfig.TOKEN_SECRET)
         req.user = decoded;
         console.log(`Token is valid for user : ${decoded.email}`);
         const emailInReq = req.body.email || req.body.email || req.query.email || req.query.email;

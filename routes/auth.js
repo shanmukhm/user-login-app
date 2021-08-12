@@ -3,6 +3,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const userService = require('../services/user');
+const config = require('../config/config.js');
+const env = process.env.NODE_ENV || 'developemnt';
+const envConfig = config[env];
 
 dotenv.config();
 
@@ -19,7 +22,7 @@ router.post('/login', async (req, res, next) => {
             const token = jwt.sign({
                 email: user.id,
                 email
-            }, process.env.TOKEN_SECRET,
+            }, envConfig.TOKEN_SECRET,
                 {
                     expiresIn: '7d'
                 })
@@ -54,12 +57,12 @@ router.post('/register', async (req, res, next) => {
             email: email.toLowerCase(),
             password: encryptedPassword
         });
-        // console.log(process.env.TOKEN_SECRET);
+        
         const token = jwt.sign(
             {
                 userId: userCreated.id,
                 email
-            }, process.env.TOKEN_SECRET,
+            }, envConfig.TOKEN_SECRET,
             {
                 expiresIn: "7d",
             }
