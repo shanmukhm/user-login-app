@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 // const config = process.env;
 const config = require('../config/config.js');
-const env = process.env.NODE_ENV || 'developemnt';
+const env = process.env.NODE_ENV || 'development';
 const envConfig = config[env];
 
 const verifyToken = (req, res, next) => {

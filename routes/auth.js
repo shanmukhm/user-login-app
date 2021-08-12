@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const userService = require('../services/user');
 const config = require('../config/config.js');
-const env = process.env.NODE_ENV || 'developemnt';
+const env = process.env.NODE_ENV || 'development';
 const envConfig = config[env];
 
 dotenv.config();
