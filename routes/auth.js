@@ -25,8 +25,8 @@ router.post('/login', async (req, res, next) => {
                 })
 
             user.token = token;
-
-            return res.status(200).send(user);
+            delete user.password;
+            return res.status(200).json(user);
         }
         return res.status(400).send("Invalid Credentials");
     } catch (error) {
