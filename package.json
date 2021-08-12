@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
+    "debug": "set DEBUG=express:* & nodemon ./bin/www",
     "test": "mocha --recursive --exit"
   },
   "dependencies": {
