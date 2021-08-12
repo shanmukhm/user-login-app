@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
 /* GET users listing. */
 router.get('/all', async (req, res, next) => {
   console.log('routed')
-  const users = await userService.findAll();
+  const users = await userService.findAll(req.query);
   res.status(200).json(users);
 });
 

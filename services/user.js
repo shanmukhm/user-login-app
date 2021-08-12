@@ -2,10 +2,14 @@ const User = require('../models/user.model');
 const Task = require('../models/task.model');
 
 module.exports = {
-    findAll: async () => {
+    findAll: async (pageParams) => {
+        const page = +pageParams.page || 1, size = +pageParams.size || 10;
         console.log(`Finding all the users...`);
 
-        let users = await User.findAll();
+        let users = await User.findAll({
+            offset: (page - 1) * size,
+            limit: size
+        });
         users = users.map(u => {
             const curr = u.toJSON();
             delete curr.password;
