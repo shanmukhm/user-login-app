@@ -21,7 +21,7 @@ router.post('/login', async (req, res, next) => {
                 email
             }, process.env.TOKEN_SECRET,
                 {
-                    expiresIn: '2h'
+                    expiresIn: '7d'
                 })
 
             user.token = token;
@@ -61,7 +61,7 @@ router.post('/register', async (req, res, next) => {
                 email
             }, process.env.TOKEN_SECRET,
             {
-                expiresIn: "2h",
+                expiresIn: "7d",
             }
         );
         userCreated.token = token;
