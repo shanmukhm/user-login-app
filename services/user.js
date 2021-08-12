@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const Task = require('../models/task.model');
 
 module.exports = {
     findAll: async () => {
@@ -16,7 +17,7 @@ module.exports = {
     get: async (email) => {
         return await User.findOne({
             where: { email: email },
-            include: db.task
+            include: Task
         });
     },
     update: async () => { },

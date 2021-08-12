@@ -29,10 +29,4 @@ function getConnection() {
 
 db.getConnection = getConnection;
 
-// db.user = require('./user.model.js')(sequelize, Sequelize);
-// db.task = require('./task.model')(sequelize, Sequelize, db.user);
-
-// db.user.hasMany(db.task);
-// db.task.belongsTo(db.user);
-
 module.exports = db;
