@@ -5,7 +5,10 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "debug": "set DEBUG=express:* & nodemon ./bin/www",
-    "test": "jest"
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "pretest": "cross-env NODE_ENV=test npm run db:reset",
+    "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -25,7 +28,8 @@
     "jest": "^27.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "sequelize-cli": "^6.2.0"
   },
   "jest": {
     "testEnvironment": "node",
