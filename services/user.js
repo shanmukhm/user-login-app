@@ -31,6 +31,7 @@ module.exports = {
             include: Task
         });
 
+        console.log(dbUser);
         if (!dbUser) {
             console.log(`User not found with email: ${email}!`);
             return null;

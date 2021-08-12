@@ -5,7 +5,8 @@ const userService = require('../services/user');
 router.get('/', async (req, res, next) => {
   console.log(req.body);
   try {
-    const user = await userService.get(req.body.email)
+    const user = await userService.get(req.body.email);
+    console.log(user);
     delete user.password;
     res.status(200).json(user);
   } catch (e) {
