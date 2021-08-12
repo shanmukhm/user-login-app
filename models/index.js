@@ -1,6 +1,6 @@
-const dbConfig = require("../config/db.config.js");
+const dbConfig = require('../config/db.config.js');
 
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -19,10 +19,20 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.user = require("./user.model.js")(sequelize, Sequelize);
-db.task = require('./task.model')(sequelize, Sequelize, db.user);
+/**
+ * 
+ * @returns {Sequelize.Sequelize} sequelize
+ */
+function getConnection() {
+  return sequelize;
+}
 
-db.user.hasMany(db.task);
-db.task.belongsTo(db.user);
+db.getConnection = getConnection;
+
+// db.user = require('./user.model.js')(sequelize, Sequelize);
+// db.task = require('./task.model')(sequelize, Sequelize, db.user);
+
+// db.user.hasMany(db.task);
+// db.task.belongsTo(db.user);
 
 module.exports = db;
