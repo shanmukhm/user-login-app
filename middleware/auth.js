@@ -11,7 +11,7 @@ const verifyToken = (req, res, next) => {
         const decoded = jwt.verify(token, config.TOKEN_SECRET)
         req.user = decoded;
         console.log(`Token is valid for user : ${decoded.email}`);
-        const emailInReq = req.body.userId || req.body.email;
+        const emailInReq = req.body.userId || req.body.email || req.query.userId || req.query.email;
         if(emailInReq && decoded.email !== emailInReq) {
             return res.status(401).send("Unathorized to access another user's information.");
         }

@@ -3,14 +3,7 @@ var router = express.Router();
 const db = require('../models');
 const userService = require('../services/user');
 
-/* GET users listing. */
-router.get('/all', async function (req, res, next) {
-  console.log('routed')
-  const users = await userService.findAll();
-  res.status(200).json(users);
-});
-
-router.get('/', async function (req, res, next) {
+router.get('/', async (req, res, next) => {
   console.log(req.body);
   try {
     const user = await userService.get(req.body.userId)
@@ -22,7 +15,14 @@ router.get('/', async function (req, res, next) {
   }
 });
 
-router.post('/', async function (req, res, next) {
+/* GET users listing. */
+router.get('/all', async (req, res, next) => {
+  console.log('routed')
+  const users = await userService.findAll();
+  res.status(200).json(users);
+});
+
+router.post('/', async (req, res, next) => {
   console.log(req.body);
   try {
     const user = await userService.save(req.body);
@@ -32,7 +32,7 @@ router.post('/', async function (req, res, next) {
   }
 });
 
-router.delete('/', async function (req, res, next) {
+router.delete('/', async (req, res, next) => {
   try {
     const user = await userService.delete(req.body.userId);
     res.send('deleted user successfully');

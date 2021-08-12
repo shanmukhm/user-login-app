@@ -2,7 +2,13 @@ const db = require('../models');
 
 module.exports = {
     findAll: async () => {
-        return db.user.findAll();
+        let users = await db.user.findAll();
+        users = users.map(u => {
+            delete u.dataValues.password;
+            return u.dataValues
+        });
+        // console.log(users)
+        return users;
     },
     save: async (user) => {
         return await db.user.create(user);
