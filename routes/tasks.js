@@ -5,7 +5,7 @@ const User = require('../models/user.model');
 router.post('/', async (req, res, next) => {
     try {
         const user = await User.findOne({
-            email: req.body.userId
+            email: req.body.email
         })
         const taskCreationPromises = req.body.tasks.map(t => {
             return Task.create(t);

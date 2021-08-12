@@ -5,7 +5,7 @@ const userService = require('../services/user');
 router.get('/', async (req, res, next) => {
   console.log(req.body);
   try {
-    const user = await userService.get(req.body.userId)
+    const user = await userService.get(req.body.email)
     delete user.password;
     res.status(200).json(user);
   } catch (e) {
@@ -33,7 +33,7 @@ router.post('/', async (req, res, next) => {
 
 router.delete('/', async (req, res, next) => {
   try {
-    const user = await userService.delete(req.body.userId);
+    const user = await userService.delete(req.body.email);
     res.send('deleted user successfully');
   } catch (e) {
     console.log(e);
