@@ -24,7 +24,7 @@ router.get('/all', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   console.log(req.body);
   try {
-    const user = await userService.save(req.body);
+    const user = await userService.create(req.body);
     res.status(201).json(user);
   } catch (e) {
     res.send("Error occured", 400);

@@ -1,9 +1,8 @@
 const router = require('express').Router();
-const db = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const User = require('../models/user.model');
+const userService = require('../services/user');
 
 dotenv.config();
 
@@ -15,11 +14,7 @@ router.post('/login', async (req, res, next) => {
             return res.status(400).send('All inputs required.');
         }
 
-        const user = await User.findOne({
-            where: {
-                email
-            }
-        })
+        const user = await userService.get(email);
         if (user && await bcrypt.compare(password, user.password)) {
             const token = jwt.sign({
                 userId: user.id,
@@ -46,14 +41,14 @@ router.post('/register', async (req, res, next) => {
         if (!(email && password && firstName && lastName)) {
             res.status(400).send("All input is required");
         }
-        const oldUser = await User.findOne({ where: { email } });
+        const oldUser = await userService.get(email);
         console.log(oldUser)
         if (oldUser) {
-            return res.status(409).send("User Already Exist. Please Login");
+            return res.status(409).send("User Already Exists. Please Login");
         }
         const encryptedPassword = await bcrypt.hash(password, 10);
 
-        const userCreated = await User.create({
+        const userCreated = await userService.create({
             firstName,
             lastName,
             email: email.toLowerCase(),

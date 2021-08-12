@@ -13,18 +13,26 @@ module.exports = {
         // console.log(users)
         return users;
     },
-    save: async (user) => {
-        return await User.create(user);
+
+    create: async (user) => {
+        const createdUser = await User.create(user);
+        const createdUserJson = createdUser.toJSON();
+        delete createdUserJson.password;
+        console.log(createdUserJson);
+        return createdUserJson;
     },
+
     get: async (email) => {
         const dbUser = await User.findOne({
-            where: { email: email },
+            where: { email },
             include: Task
         });
 
         return dbUser.toJSON();
     },
+
     update: async () => { },
+
     delete: async (email) => {
         return await User.destroy({
             where: { email }
