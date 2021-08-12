@@ -1,8 +1,8 @@
-const db = require('../models');
+const User = require('../models/user.model');
 
 module.exports = {
     findAll: async () => {
-        let users = await db.user.findAll();
+        let users = await User.findAll();
         users = users.map(u => {
             delete u.dataValues.password;
             return u.dataValues
@@ -11,17 +11,17 @@ module.exports = {
         return users;
     },
     save: async (user) => {
-        return await db.user.create(user);
+        return await User.create(user);
     },
     get: async (email) => {
-        return await db.user.findOne({
+        return await User.findOne({
             where: { email: email },
             include: db.task
         });
     },
     update: async () => { },
     delete: async (email) => {
-        return await db.user.destroy({
+        return await User.destroy({
             where: { email }
           });
      }

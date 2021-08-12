@@ -1,13 +1,14 @@
 const router = require('express').Router();
-const db = require('../models');
+const Task = require('../models/task.model');
+const User = require('../models/user.model');
 
 router.post('/', async (req, res, next) => {
     try {
-        const user = await db.user.findOne({
+        const user = await User.findOne({
             email: req.body.userId
         })
         const taskCreationPromises = req.body.tasks.map(t => {
-            return db.task.create(t);
+            return Task.create(t);
         });
 
         const tasks = await Promise.all(taskCreationPromises);
@@ -23,7 +24,7 @@ router.post('/', async (req, res, next) => {
 router.delete('/:taskId', async (req, res, next) => {
     try {
         const taskId = req.params.taskId
-        const taskD = await db.task.destroy({
+        const taskD = await Task.destroy({
             where: { id: taskId }
           });
         res.status(200).json({success: true});
