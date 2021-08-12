@@ -11,7 +11,9 @@ const userCreateReq = {
 const loginRequest = {
     "email": userCreateReq.email,
     "password": userCreateReq.password
-}
+};
+
+let token = '';
 
 describe('User API', () => {
     it('Should signup/create user', async() => {
@@ -30,9 +32,20 @@ describe('User API', () => {
         expect(res.body.firstName).toEqual(userCreateReq.firstName);
         expect(res.body.lastName).toEqual(userCreateReq.lastName);
         expect(res.body).toHaveProperty('token');
+        token = res.body.token;
     })
-    // it('Should show all users', async () => {
-    //     const res = await request(app).get('/users/all');
-    //     expect(res.statusCode).toEqual(200);
-    // })
+
+    it('Should show all users', async () => {
+        const res = await request(app).get('/users/all').set({'x-access-token': token});
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveLength(1);
+    })
+
+    it('Should get user by email', async () => {
+        const res = await request(app).get('/users').set({'x-access-token': token});
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.email).toEqual(userCreateReq.email);
+        expect(res.body.firstName).toEqual(userCreateReq.firstName);
+        expect(res.body.lastName).toEqual(userCreateReq.lastName);
+    })
 })
