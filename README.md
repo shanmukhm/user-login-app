@@ -1,6 +1,4 @@
-# user-login-app
-
-User Login Application
+# User Login Application
 
 Follow the following steps:
 1. Create an express server running on port 8000
