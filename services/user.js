@@ -3,8 +3,9 @@ const Task = require('../models/task.model');
 
 module.exports = {
     findAll: async () => {
+        console.log(`Finding all the users...`);
+
         let users = await User.findAll();
-        
         users = users.map(u => {
             const curr = u.toJSON();
             delete curr.password;
@@ -15,27 +16,34 @@ module.exports = {
     },
 
     create: async (user) => {
+        console.log(`Creating user...`);
         const createdUser = await User.create(user);
         const createdUserJson = createdUser.toJSON();
         delete createdUserJson.password;
-        console.log(createdUserJson);
+        console.log(`Created user successfully.`);
         return createdUserJson;
     },
 
     get: async (email) => {
+        console.log(`Fetching user with email: ${email}!`);
         const dbUser = await User.findOne({
             where: { email },
             include: Task
         });
 
+        if (!dbUser) {
+            console.log(`User not found with email: ${email}!`);
+            return null;
+        }
         return dbUser.toJSON();
     },
 
     update: async () => { },
 
     delete: async (email) => {
+        console.log(`Deleting user with email: ${email}!`);
         return await User.destroy({
             where: { email }
-          });
-     }
+        });
+    }
 };
