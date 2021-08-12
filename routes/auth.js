@@ -12,7 +12,7 @@ router.post('/login', async (req, res, next) => {
         const { email, password } = req.body;
 
         if (!(email && password)) {
-            res.status(400).send('All inputs required.');
+            return res.status(400).send('All inputs required.');
         }
 
         const user = await db.user.findOne({
@@ -31,12 +31,12 @@ router.post('/login', async (req, res, next) => {
 
             user.token = token;
 
-            res.status(200).send(user);
+            return res.status(200).send(user);
         }
         return res.status(400).send("Invalid Credentials");
     } catch (error) {
         console.log('Error', error);
-        res.send('Unknown error', 500);
+        return res.send('Unknown error', 500);
     }
 })
 
